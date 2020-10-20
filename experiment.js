@@ -95,7 +95,7 @@ var instructTimeThresh = 0 ///in seconds
 var credit_var = true
 
 // task specific variables
-var num_go_stim = 9 //per one no-go stim
+var num_go_stim = 4 //per one no-go stim
 var correct_responses = [
   ['go', 32],
   ['nogo', -1]
@@ -145,7 +145,7 @@ for (var i = 0; i < num_go_stim; i++) {
 }
 
 var practice_trials = jsPsych.randomization.repeat(practice_stimuli, 1); //todo тут вводится количество повторений искомого элемента для разминки
-var test_trials = jsPsych.randomization.repeat(test_stimuli_block, 1); //todo тут вводится количество повторений искомого элемента для основного теста
+var test_trials = jsPsych.randomization.repeat(test_stimuli_block, 36); //todo тут вводится количество повторений искомого элемента для основного теста
 
 /* ************************************ */
 /* Set up jsPsych blocks */
@@ -174,15 +174,14 @@ var post_task_block = {
    data: {
        trial_id: "post task questions"
    },
-   questions: ['<p class = center-block-text style = "font-size: 20px">Please summarize what you were asked to do in this task.</p>',
-              '<p class = center-block-text style = "font-size: 20px">Do you have any comments about this task?</p>'],
+  questions: ['<p class = center-block-text style = "font-size: 20px">Кратко опишите, что вас просили сделать в этой задаче.</p>',
+              '<p class = center-block-text style = "font-size: 20px">Есть ли у вас комментарии по поводу этой задачи?</p>'],
    rows: [15, 15],
    columns: [60,60]
 };
 
 /* define static blocks */
-var feedback_instruct_text =
-  'Welcome to the experiment. This task will take around 10 minutes. Press <strong>enter</strong> to begin.'
+var feedback_instruct_text = 'Добро пожаловать. Нажмите <strong>Enter</strong>, чтобы начать.';
 var feedback_instruct_block = {
   type: 'poldrack-text',
   cont_key: [13],
@@ -200,7 +199,7 @@ var instructions_block = {
     trial_id: "instruction"
   },
   pages: [
-    '<div class = centerbox><p class = block-text>In this experiment blue and orange squares will appear on the screen. You will be told to respond to one of the colored squares by pressing the spacebar. You should only respond to this color and withhold any response to the other color.</p><p class = block-text>If you see the <font color="' + stims[0][0] + '">' + stims[0][0] + '</font> square you should <strong> respond by pressing the spacebar as quickly as possible</strong>. If you see the <font color="' + stims[1][0] + '">' + stims[1][0] + '</font> square you should <strong> not respond</strong>.</p><p class = block-text>We will begin with practice. You will get feedback telling you if you were correct.</p></div>'
+    '<div class = centerbox><p class = block-text>В этом эксперименте на экране будут появляться <font color="' + stims[0][0] + '">оранжевые</font> и <font color="' + stims[1][0] + '">синие</font> бабочки.</p><p class = block-text>При появлении <font color="' + stims[0][0] + '">оранжевой</font> бабочки нужно сразу же <strong>нажать клавишу пробела</strong>. Если появляется <font color="' + stims[1][0] + '">голубая</font> бабочка, <strong>ничего не нажимай</strong>.</p></p><p class = block-text>После каждого ответа ты будешь получать обратную связь о том, правильно ты определил направление или нет. Начнем с небольшой практики.</p></div>'
   ],
   allow_keys: false,
   show_clickable_nav: true,
@@ -236,7 +235,7 @@ var end_block = {
     trial_id: "end",
     exp_id: 'go_nogo'
   },
-  text: '<div class = centerbox><p class = center-block-text>Thanks for completing this task!</p><p class = center-block-text>Press <strong>enter</strong> to continue.</p></div>',
+  text: '<div class = centerbox><p class = center-block-text>Спасибо!</p><p class = center-block-text>Нажмите <strong>Enter</strong>, чтобы продолжить.</p></div>',
   cont_key: [13],
   timing_post_trial: 0,
   on_finish: assessPerformance
@@ -248,9 +247,21 @@ var start_test_block = {
   data: {
     trial_id: "test_intro"
   },
-  text: '<div class = centerbox><p class = block-text>Practice is over, we will now begin the experiment. You will no longer get feedback about your responses.</p><p class = block-text>Remember, if you see the <font color="' + stims[0][0] + '">' + stims[0][0] + '</font> square you should <strong> respond by pressing the spacebar as quickly as possible</strong>. If you see the <font color="' + stims[1][0] + '">' + stims[1][0] + '</font> square you should <strong> not respond</strong>. Press <strong>enter</strong> to begin.</p></div>',
+  text: '<div class = centerbox><p class = block-text>Закончим с практикой, начнем тест. Ты больше не будешь получать обратную связь о своих ответах.</p><p class = block-text>Запомни, если видишь <font color="' + stims[0][0] + '">оранжевую</font> бабочку, ты должен сразу же <strong>нажать клавишу пробела</strong>. Если появляется <font color="' + stims[1][0] + '">голубая</font> бабочка, <strong>ничего не нажимай</strong>. Нажми <strong>Enter</strong>, чтобы начать.</p></div>',
   cont_key: [13],
   timing_post_trial: 1000
+};
+
+var outro_test_block = {
+  type: 'poldrack-text',
+  is_html: true,
+  data: {
+    trial_id: "test_outro"
+  },
+  timing_stim: 2000,
+  timing_response: 2000,
+  timing_post_trial: 0,
+  text: '<div class = centerbox><div class="img-container"><img src="images/outro.jpg" alt="Молодец"></div></div>',
 };
 
 var reset_block = {
@@ -311,5 +322,6 @@ go_nogo_experiment.push(reset_block)
 go_nogo_experiment.push(start_test_block);
 go_nogo_experiment.push(test_block);
 go_nogo_experiment.push(attention_node)
+go_nogo_experiment.push(outro_test_block)
 go_nogo_experiment.push(post_task_block)
 go_nogo_experiment.push(end_block)
