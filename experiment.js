@@ -199,7 +199,7 @@ var instructions_block = {
     trial_id: "instruction"
   },
   pages: [
-    '<div class = centerbox><p class = block-text>В этом эксперименте на экране будут появляться <font color="' + stims[0][0] + '">оранжевые</font> и <font color="' + stims[1][0] + '">синие</font> бабочки.</p><p class = block-text>При появлении <font color="' + stims[0][0] + '">оранжевой</font> бабочки нужно сразу же <strong>нажать клавишу пробела</strong>. Если появляется <font color="' + stims[1][0] + '">голубая</font> бабочка, <strong>ничего не нажимай</strong>.</p></p><p class = block-text>После каждого ответа ты будешь получать обратную связь о том, правильно ты определил направление или нет. Начнем с небольшой практики.</p></div>'
+    '<div class = centerbox><p class = block-text>В этом эксперименте на экране будут появляться <font color="' + stims[0][0] + '">оранжевые</font> и <font color="' + stims[1][0] + '">синие</font> бабочки.</p><p class = block-text>При появлении <font color="' + stims[0][0] + '">оранжевой</font> бабочки нужно сразу же <strong>нажать клавишу пробела</strong>. Если появляется <font color="' + stims[1][0] + '">голубая</font> бабочка, <strong>ничего не нажимай</strong>.</p></p><p class = block-text>После каждого ответа ты будешь получать обратную связь о том, правильно ты определил цвет или нет. Начнем с небольшой практики.</p></div>'
   ],
   allow_keys: false,
   show_clickable_nav: true,
